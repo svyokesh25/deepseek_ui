@@ -1,0 +1,217 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ──────────────────────────────────────────────────────────────
+   Design tokens. Every dark-mode value in the app comes from
+   here. Change a token, and every component picks it up.
+   ────────────────────────────────────────────────────────────── */
+:root {
+  /* Light surfaces */
+  --xn-bg:          #ffffff;
+  --xn-panel:       #ffffff;
+  --xn-panel-2:     #f5f7fa;
+  --xn-panel-3:     #eef1f6;
+  --xn-border:      #e3e6eb;
+  --xn-border-2:    #d4d9e0;
+  --xn-text:        #131722;
+  --xn-text-dim:    #5d6673;
+  --xn-text-mute:   #9aa3b0;
+  --xn-hover:       #f0f3fa;
+  --xn-active:      #e3ebff;
+  --xn-accent:      #2962ff;
+  --xn-accent-2:    #1e88e5;
+  --xn-up:          #089981;
+  --xn-down:        #f23645;
+  --xn-buy:         #2962ff;
+  --xn-sell:        #ff6a00;
+
+  /* Chart */
+  --xn-chart-bg:    #ffffff;
+  --xn-chart-grid:  #f0f2f5;
+  --xn-chart-text:  #5d6673;
+  --xn-chart-up:    #089981;
+  --xn-chart-down:  #f23645;
+}
+
+[data-theme="dark"], html.dark, body.darkTheme {
+  /* Deep premium dark with blue undertones */
+  --xn-bg:          #080b11;   /* outermost page */
+  --xn-panel:       #0b0f19;   /* main surfaces */
+  --xn-panel-2:     #0d121f;   /* raised / headers */
+  --xn-panel-3:     #142340;   /* tab strip / active rows */
+  --xn-border:      #162032;   /* standard 1px border */
+  --xn-border-2:    #1c2b42;   /* stronger divider */
+  --xn-text:        #e2e8f0;   /* primary text */
+  --xn-text-dim:    #a0a5b0;   /* secondary text */
+  --xn-text-mute:   #787b86;   /* labels, units */
+  --xn-hover:       #121b2d;   /* row hover */
+  --xn-active:      #142340;   /* selected row tint */
+  --xn-accent:      #38bdf8;   /* brighter blue for dark */
+  --xn-accent-2:    #0072fd;
+  --xn-up:          #26a69a;   /* TradingView teal */
+  --xn-down:        #ef5350;   /* TradingView red */
+  --xn-buy:         #0072fd;
+  --xn-sell:        #ff5722;
+
+  /* Chart */
+  --xn-chart-bg:    #0a0e17;
+  --xn-chart-grid:  #0f1726;
+  --xn-chart-text:  #7e8d9f;
+  --xn-chart-up:    #26a69a;
+  --xn-chart-down:  #ef5350;
+}
+
+html, body, #app {
+  height: 100%; margin: 0;
+  background: var(--xn-bg);
+  color: var(--xn-text);
+  font-size: 12px; overflow: hidden;
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  transition: background-color 0.18s ease, color 0.18s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Scrollbars ────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 7px; height: 7px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: #d4d9e0;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover { background: #b8bec8; }
+
+html[data-theme="dark"] ::-webkit-scrollbar-thumb,
+html.dark ::-webkit-scrollbar-thumb,
+body.darkTheme ::-webkit-scrollbar-thumb {
+  background: #162032;
+}
+html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover,
+html.dark ::-webkit-scrollbar-thumb:hover,
+body.darkTheme ::-webkit-scrollbar-thumb:hover {
+  background: #233554;
+}
+
+@layer components {
+  /* ── Buttons ─────────────────────────────────────────────── */
+  .xn-btn {
+    @apply inline-flex items-center justify-center gap-1 px-2 py-1 rounded
+           text-xs cursor-pointer transition-colors select-none
+           whitespace-nowrap bg-transparent border border-transparent;
+    color: var(--xn-text-dim);
+  }
+  .xn-btn:hover { background: var(--xn-hover); color: var(--xn-text); }
+  .xn-btn.active {
+    background: var(--xn-active);
+    color: var(--xn-accent);
+    border-color: var(--xn-accent);
+  }
+
+  .xn-icon-btn {
+    @apply w-7 h-7 flex items-center justify-center rounded
+           cursor-pointer transition-colors;
+    color: var(--xn-text-dim);
+  }
+  .xn-icon-btn:hover { background: var(--xn-hover); color: var(--xn-text); }
+
+  .xn-tool {
+    @apply w-8 h-8 flex items-center justify-center rounded
+           cursor-pointer transition-colors;
+    color: var(--xn-text-dim);
+  }
+  .xn-tool:hover { background: var(--xn-hover); color: var(--xn-text); }
+  .xn-tool.active {
+    background: var(--xn-active);
+    color: var(--xn-accent);
+  }
+
+  .xn-tab {
+    @apply px-3 py-[7px] cursor-pointer text-xs whitespace-nowrap
+           transition-colors border-b-2 border-transparent;
+    color: var(--xn-text-dim);
+  }
+  .xn-tab:hover { color: var(--xn-text); }
+  .xn-tab.active {
+    color: var(--xn-text);
+    border-color: var(--xn-accent);
+    background: var(--xn-panel-2);
+    font-weight: 500;
+  }
+
+  .xn-table { @apply w-full border-collapse text-[11px]; }
+  .xn-table th {
+    @apply text-left px-2 py-[6px] font-normal
+           text-[10px] uppercase tracking-wide;
+    color: var(--xn-text-mute);
+    border-bottom: 1px solid var(--xn-border);
+    background: var(--xn-panel-2);
+  }
+  .xn-table td {
+    @apply px-2 py-[6px] whitespace-nowrap;
+    border-bottom: 1px solid var(--xn-border);
+    color: var(--xn-text-dim);
+  }
+
+  .dropdown {
+    @apply absolute top-full left-0 mt-1 rounded min-w-[130px] z-50 hidden;
+    background: var(--xn-panel-2);
+    border: 1px solid var(--xn-border-2);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.28);
+  }
+  .dropdown.open { @apply block; }
+  .dropdown-item {
+    @apply px-3 py-1.5 cursor-pointer text-xs;
+    color: var(--xn-text-dim);
+  }
+  .dropdown-item:hover {
+    background: var(--xn-hover);
+    color: var(--xn-text);
+  }
+  .dropdown-item.active { color: var(--xn-accent); }
+
+  .resizer-v {
+    @apply w-px cursor-col-resize transition-colors shrink-0;
+    background: var(--xn-border);
+  }
+  .resizer-v:hover, .resizer-v.dragging { background: var(--xn-accent); }
+
+  .resizer-h {
+    @apply h-px cursor-row-resize transition-colors shrink-0;
+    background: var(--xn-border);
+  }
+  .resizer-h:hover, .resizer-h.dragging { background: var(--xn-accent); }
+}
+
+html[data-theme="dark"] .resizer-v, html[data-theme="dark"] .resizer-h,
+html.dark .resizer-v, html.dark .resizer-h,
+body.darkTheme .resizer-v, body.darkTheme .resizer-h {
+  background-color: #162032;
+}
+
+html[data-theme="dark"] .xn-tool,
+html.dark .xn-tool, body.darkTheme .xn-tool {
+  color: #7e8d9f;
+}
+html[data-theme="dark"] .xn-tool:hover,
+html.dark .xn-tool:hover, body.darkTheme .xn-tool:hover {
+  background-color: #121b2d;
+  color: #ffffff;
+}
+html[data-theme="dark"] .xn-tool.active,
+html.dark .xn-tool.active, body.darkTheme .xn-tool.active {
+  background-color: #142340;
+  color: #38bdf8;
+}
+
+/* ── Flash animations for watchlist price updates ──────────── */
+@keyframes xn-flash-up-kf {
+  0%   { background-color: color-mix(in srgb, var(--xn-up) 22%, transparent); }
+  100% { background-color: transparent; }
+}
+@keyframes xn-flash-down-kf {
+  0%   { background-color: color-mix(in srgb, var(--xn-down) 22%, transparent); }
+  100% { background-color: transparent; }
+}
+.xn-flash-up   { animation: xn-flash-up-kf 0.38s ease; }
+.xn-flash-down { animation: xn-flash-down-kf 0.38s ease; }

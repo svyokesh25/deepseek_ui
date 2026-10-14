@@ -1,0 +1,292 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ──────────────────────────────────────────────────────────────
+   Design tokens. Every dark-mode value in the app comes from
+   here. Change a token, and every component picks it up.
+   ────────────────────────────────────────────────────────────── */
+:root {
+  /* True Pure Full White surfaces */
+  --xn-bg: #ffffff;
+  --xn-panel: #ffffff;
+  --xn-panel-2: #ffffff;
+  --xn-panel-3: #f4f4f5;
+  --xn-border: #e5e7eb;
+  --xn-border-2: #d4d4d8;
+  --xn-text: #000000;
+  --xn-text-dim: #52525b;
+  --xn-text-mute: #a1a1aa;
+  --xn-hover: #f4f4f5;
+  --xn-active: #e4e4e7;
+  --xn-accent: #0072fd;
+  --xn-accent-2: #1e88e5;
+  --xn-up: #089981;
+  --xn-down: #f23645;
+  --xn-buy: #0072fd;
+  --xn-sell: #ff5722;
+
+  /* Chart: Full White */
+  --xn-chart-bg: #ffffff;
+  --xn-chart-grid: #f4f4f5;
+  --xn-chart-text: #52525b;
+  --xn-chart-up: #089981;
+  --xn-chart-down: #f23645;
+}
+
+[data-theme="dark"],
+html.dark,
+body.darkTheme {
+  /* Obsidian Midnight Theme (matching screenshot) */
+  --xn-bg: #0c1017;
+  --xn-panel: #0d111a;
+  --xn-panel-2: #131823;
+  --xn-panel-3: #182030;
+  --xn-border: #1a2232;
+  --xn-border-2: #242e42;
+  --xn-text: #ffffff;
+  --xn-text-dim: #8b95a5;
+  --xn-text-mute: #5a6578;
+  --xn-hover: #161e2c;
+  --xn-active: #1c2638;
+  --xn-accent: #0072fd;
+  --xn-accent-2: #38bdf8;
+  --xn-up: #089981;
+  --xn-down: #f23645;
+  --xn-buy: #0072fd;
+  --xn-sell: #ff5722;
+
+  /* Chart: Deep Obsidian Midnight */
+  --xn-chart-bg: #090d15;
+  --xn-chart-grid: #131926;
+  --xn-chart-text: #8b95a5;
+  --xn-chart-up: #089981;
+  --xn-chart-down: #f23645;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+  background: var(--xn-bg);
+  color: var(--xn-text);
+  font-size: 12px;
+  overflow: hidden;
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  transition: background-color 0.18s ease, color 0.18s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Scrollbars ────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d4d9e0;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b8bec8;
+}
+
+html[data-theme="dark"] ::-webkit-scrollbar-thumb,
+html.dark ::-webkit-scrollbar-thumb,
+body.darkTheme ::-webkit-scrollbar-thumb {
+  background: #1e2638;
+}
+
+html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover,
+html.dark ::-webkit-scrollbar-thumb:hover,
+body.darkTheme ::-webkit-scrollbar-thumb:hover {
+  background: #2b374e;
+}
+
+@layer components {
+
+  /* ── Buttons ─────────────────────────────────────────────── */
+  .xn-btn {
+    @apply inline-flex items-center justify-center gap-1 px-2 py-1 rounded text-xs cursor-pointer transition-colors select-none whitespace-nowrap bg-transparent border border-transparent;
+    color: var(--xn-text-dim);
+  }
+
+  .xn-btn:hover {
+    background: var(--xn-hover);
+    color: var(--xn-text);
+  }
+
+  .xn-btn.active {
+    background: var(--xn-active);
+    color: var(--xn-accent);
+    border-color: var(--xn-accent);
+  }
+
+  .xn-icon-btn {
+    @apply w-7 h-7 flex items-center justify-center rounded cursor-pointer transition-colors;
+    color: var(--xn-text-dim);
+  }
+
+  .xn-icon-btn:hover {
+    background: var(--xn-hover);
+    color: var(--xn-text);
+  }
+
+  .xn-tool {
+    @apply w-8 h-8 flex items-center justify-center rounded cursor-pointer transition-colors;
+    color: var(--xn-text-dim);
+  }
+
+  .xn-tool:hover {
+    background: var(--xn-hover);
+    color: var(--xn-text);
+  }
+
+  .xn-tool.active {
+    background: var(--xn-active);
+    color: var(--xn-accent);
+  }
+
+  .xn-tab {
+    @apply px-3 py-[7px] cursor-pointer text-xs whitespace-nowrap transition-colors border-b-2 border-transparent;
+    color: var(--xn-text-dim);
+  }
+
+  .xn-tab:hover {
+    color: var(--xn-text);
+  }
+
+  .xn-tab.active {
+    color: var(--xn-text);
+    border-color: var(--xn-accent);
+    background: var(--xn-panel-2);
+    font-weight: 500;
+  }
+
+  .xn-table {
+    @apply w-full border-collapse text-[11px];
+  }
+
+  .xn-table th {
+    @apply text-left px-2 py-[6px] font-normal text-[10px] uppercase tracking-wide;
+    color: var(--xn-text-mute);
+    border-bottom: 1px solid var(--xn-border);
+    background: var(--xn-panel-2);
+  }
+
+  .xn-table td {
+    @apply px-2 py-[6px] whitespace-nowrap;
+    border-bottom: 1px solid var(--xn-border);
+    color: var(--xn-text-dim);
+  }
+
+  .dropdown {
+    @apply absolute top-full left-0 mt-1 rounded min-w-[130px] z-50 hidden;
+    background: var(--xn-panel-2);
+    border: 1px solid var(--xn-border-2);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.28);
+  }
+
+  .dropdown.open {
+    @apply block;
+  }
+
+  .dropdown-item {
+    @apply px-3 py-1.5 cursor-pointer text-xs;
+    color: var(--xn-text-dim);
+  }
+
+  .dropdown-item:hover {
+    background: var(--xn-hover);
+    color: var(--xn-text);
+  }
+
+  .dropdown-item.active {
+    color: var(--xn-accent);
+  }
+
+  .resizer-v {
+    @apply w-px cursor-col-resize transition-colors shrink-0;
+    background: var(--xn-border);
+  }
+
+  .resizer-v:hover,
+  .resizer-v.dragging {
+    background: var(--xn-accent);
+  }
+
+  .resizer-h {
+    @apply h-px cursor-row-resize transition-colors shrink-0;
+    background: var(--xn-border);
+  }
+
+  .resizer-h:hover,
+  .resizer-h.dragging {
+    background: var(--xn-accent);
+  }
+}
+
+html[data-theme="dark"] .resizer-v,
+html[data-theme="dark"] .resizer-h,
+html.dark .resizer-v,
+html.dark .resizer-h,
+body.darkTheme .resizer-v,
+body.darkTheme .resizer-h {
+  background-color: #1a2232;
+}
+
+html[data-theme="dark"] .xn-tool,
+html.dark .xn-tool,
+body.darkTheme .xn-tool {
+  color: #8b95a5;
+}
+
+html[data-theme="dark"] .xn-tool:hover,
+html.dark .xn-tool:hover,
+body.darkTheme .xn-tool:hover {
+  background-color: #161e2c;
+  color: #ffffff;
+}
+
+html[data-theme="dark"] .xn-tool.active,
+html.dark .xn-tool.active,
+body.darkTheme .xn-tool.active {
+  background-color: #1c2638;
+  color: #38bdf8;
+}
+
+/* ── Flash animations for watchlist price updates ──────────── */
+@keyframes xn-flash-up-kf {
+  0% {
+    background-color: color-mix(in srgb, var(--xn-up) 22%, transparent);
+  }
+
+  100% {
+    background-color: transparent;
+  }
+}
+
+@keyframes xn-flash-down-kf {
+  0% {
+    background-color: color-mix(in srgb, var(--xn-down) 22%, transparent);
+  }
+
+  100% {
+    background-color: transparent;
+  }
+}
+
+.xn-flash-up {
+  animation: xn-flash-up-kf 0.38s ease;
+}
+
+.xn-flash-down {
+  animation: xn-flash-down-kf 0.38s ease;
+}
